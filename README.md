@@ -12,7 +12,7 @@ Jetpack Compose, MVVM, Hilt, Room, Retrofit, and Kotlin Coroutines.
 
 ## 🎥 Demo Video
 
-https://github.com/dedesaepulloh/fake-app-store/assets/demo.mp4
+[https://github.com/dedesaepulloh/fake-app-store/assets/demo.mp4](https://github.com/dedesaepulloh/fake-app-store/tree/master/app/src/main/assets)
 
 > 📌 *If the video doesn't play, try downloading it or view it directly on the "Releases" tab if uploaded there.*
 
