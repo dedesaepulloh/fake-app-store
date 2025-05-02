@@ -37,4 +37,13 @@ class FakeUseCase @Inject constructor(
 
     suspend fun getProductByCategory(category: String) = repository.getProductByCategory(category)
 
+    suspend fun addToWishlist(product: Product) = repository.addToWishlist(product)
+
+    suspend fun removeWishlist(product: Product) = repository.removeWishlist(product)
+
+    suspend fun isWishlist(id: Int): Product? = repository.isWishlist(id)
+
+    suspend fun getAllWishlist(): List<Product> = repository.getAllWishlist()
+
+
 }

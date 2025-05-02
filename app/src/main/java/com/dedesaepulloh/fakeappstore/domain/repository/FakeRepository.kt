@@ -34,4 +34,12 @@ interface FakeRepository {
 
     suspend fun getProductByCategory(category: String): Result<List<Product>>
 
+    suspend fun addToWishlist(product: Product)
+
+    suspend fun removeWishlist(product: Product)
+
+    suspend fun isWishlist(id: Int): Product?
+
+    suspend fun getAllWishlist(): List<Product>
+
 }

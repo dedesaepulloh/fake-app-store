@@ -3,6 +3,7 @@ package com.dedesaepulloh.fakeappstore.data.local
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 
@@ -29,6 +30,19 @@ interface FakeDao {
 
     @Query("UPDATE cart_items SET quantity = :quantity WHERE id = :itemId")
     suspend fun updateQuantity(itemId: Int, quantity: Int)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addToWishlist(data: WishlistEntity)
+
+    @Delete
+    suspend fun removeWishlist(data: WishlistEntity)
+
+    @Query("SELECT * FROM wishlist WHERE id = :id LIMIT 1")
+    suspend fun getWishlist(id: Int): WishlistEntity?
+
+    @Query("SELECT * FROM wishlist")
+    suspend fun getAllWishlist(): List<WishlistEntity>
+
 
 }
 

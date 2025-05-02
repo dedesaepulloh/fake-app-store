@@ -28,89 +28,73 @@ fun AppNavGraph(
     isLoggedIn: Boolean
 ) {
     NavHost(
-        navController,
-        startDestination = if (!isLoggedIn) Screen.Login.route else Screen.Home.route
+        navController, startDestination = if (!isLoggedIn) Screen.Login.route else Screen.Home.route
     ) {
         composable(Screen.Login.route) {
-            LoginScreen(
-                modifier = Modifier.padding(padding),
-                onLoginSuccess = {
-                    navController.navigate(Screen.Home.route) {
-                        popUpTo(Screen.Login.route) { inclusive = true }
-                        launchSingleTop = true
-                    }
-                },
-                onRegisterClick = {
-                    navController.navigate(Screen.Register.route)
-                },
-                onForgotPasswordClick = {
-
+            LoginScreen(modifier = Modifier.padding(padding), onLoginSuccess = {
+                navController.navigate(Screen.Home.route) {
+                    popUpTo(Screen.Login.route) { inclusive = true }
+                    launchSingleTop = true
                 }
-            )
+            }, onRegisterClick = {
+                navController.navigate(Screen.Register.route)
+            }, onForgotPasswordClick = {
+
+            })
         }
         composable(Screen.Register.route) {
-            RegisterScreen(
-                modifier = Modifier.padding(padding),
-                onRegisterSuccess = {
-                    navController.navigate(Screen.Login.route) {
-                        popUpTo(Screen.Login.route) { inclusive = true }
-                        launchSingleTop = true
-                    }
+            RegisterScreen(modifier = Modifier.padding(padding), onRegisterSuccess = {
+                navController.navigate(Screen.Login.route) {
+                    popUpTo(Screen.Login.route) { inclusive = true }
+                    launchSingleTop = true
                 }
-            )
+            })
         }
         composable(Screen.Home.route) {
-            HomeScreen(
-                modifier = Modifier.padding(padding),
-                onItemClick = { product ->
-                    navController.navigate(Screen.ProductDetail.create(product.id))
-                },
-                onOrderNow = {
-                    cartViewModel.setCheckoutProducts(listOf(it))
-                    navController.navigate(Screen.OrderDetail.route)
-                }
-            )
+            HomeScreen(modifier = Modifier.padding(padding), onItemClick = { product ->
+                navController.navigate(Screen.ProductDetail.create(product.id))
+            }, onOrderNow = {
+                cartViewModel.setCheckoutProducts(listOf(it))
+                navController.navigate(Screen.OrderDetail.route)
+            })
         }
         composable(Screen.Category.route) {
-            CategoryScreen(
-                modifier = Modifier.padding(padding),
-                onCategoryClick = {
-                    navController.navigate(Screen.ProductCategory.create(it))
-                }
-            )
+            CategoryScreen(modifier = Modifier.padding(padding), onCategoryClick = {
+                navController.navigate(Screen.ProductCategory.create(it))
+            })
         }
         composable(Screen.Cart.route) {
-            CartScreen(
-                modifier = Modifier.padding(padding),
+            CartScreen(modifier = Modifier.padding(padding),
                 viewModel = cartViewModel,
                 onCheckoutClick = {
                     cartViewModel.setCheckoutProducts(it)
                     navController.navigate(Screen.OrderDetail.route)
-                }
-            )
+                })
         }
-        composable(Screen.Wishlist.route) { WishlistScreen(modifier = Modifier.padding(padding)) }
+        composable(Screen.Wishlist.route) {
+            WishlistScreen(modifier = Modifier.padding(padding), onOrderNow = {
+                navController.navigate(Screen.OrderDetail.route)
+            }, onItemClick = {
+                navController.navigate(Screen.ProductDetail.create(it.id))
+            })
+        }
         composable(
             route = Screen.ProductDetail.route,
             arguments = listOf(navArgument("id") { type = NavType.IntType })
         ) { backStackEntry ->
             val id = backStackEntry.arguments?.getInt("id") ?: 0
-            ProductDetailScreen(
-                modifier = Modifier.padding(padding),
+            ProductDetailScreen(modifier = Modifier.padding(padding),
                 id = id,
                 cartViewModel = cartViewModel,
                 onOrderNow = {
                     navController.navigate(Screen.OrderDetail.route)
-                }
-            )
+                })
         }
         composable(Screen.OrderDetail.route) {
             OrderDetailScreen(
-                modifier = Modifier.padding(padding),
-                onPayClick = {
+                modifier = Modifier.padding(padding), onPayClick = {
 
-                },
-                cartViewModel = cartViewModel
+                }, cartViewModel = cartViewModel
             )
         }
 
@@ -119,16 +103,14 @@ fun AppNavGraph(
             arguments = listOf(navArgument("category") { type = NavType.StringType })
         ) { backStackEntry ->
             val category = backStackEntry.arguments?.getString("category") ?: ""
-            ProductCategoryScreen(
-                modifier = Modifier.padding(padding),
+            ProductCategoryScreen(modifier = Modifier.padding(padding),
                 category = category,
                 onOrderNow = {
                     navController.navigate(Screen.OrderDetail.route)
                 },
                 onItemClick = {
                     navController.navigate(Screen.ProductDetail.create(it.id))
-                }
-            )
+                })
         }
 
     }

@@ -7,6 +7,8 @@ import com.dedesaepulloh.fakeappstore.domain.model.Product
 import com.dedesaepulloh.fakeappstore.domain.model.User
 import com.dedesaepulloh.fakeappstore.domain.model.toDomain
 import com.dedesaepulloh.fakeappstore.domain.model.toEntity
+import com.dedesaepulloh.fakeappstore.domain.model.toWishlistDomain
+import com.dedesaepulloh.fakeappstore.domain.model.toWishlistEntity
 import com.dedesaepulloh.fakeappstore.domain.repository.FakeRepository
 import com.dedesaepulloh.fakeappstore.utils.Result
 import kotlinx.coroutines.flow.first
@@ -43,7 +45,8 @@ class FakeRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun isLoggedIn(): Boolean = userPreferences.getLoginStatus().firstOrNull() ?: false
+    override suspend fun isLoggedIn(): Boolean =
+        userPreferences.getLoginStatus().firstOrNull() ?: false
 
     override suspend fun getUser(): User? {
         return userPreferences.readUser().first()
@@ -129,5 +132,21 @@ class FakeRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             Result.Error(e.localizedMessage ?: "Unknown error")
         }
+    }
+
+    override suspend fun addToWishlist(product: Product) {
+        fakeDao.addToWishlist(product.toWishlistEntity())
+    }
+
+    override suspend fun removeWishlist(product: Product) {
+        fakeDao.removeWishlist(product.toWishlistEntity())
+    }
+
+    override suspend fun isWishlist(id: Int): Product? {
+        return fakeDao.getWishlist(id)?.toWishlistDomain()
+    }
+
+    override suspend fun getAllWishlist(): List<Product> {
+        return fakeDao.getAllWishlist().map { it.toWishlistDomain() }
     }
 }

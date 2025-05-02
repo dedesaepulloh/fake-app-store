@@ -20,6 +20,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddShoppingCart
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -27,8 +28,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -44,17 +48,27 @@ import com.dedesaepulloh.fakeappstore.presentation.cart.CartViewModel
 import com.dedesaepulloh.fakeappstore.presentation.components.ErrorScreen
 import com.dedesaepulloh.fakeappstore.presentation.components.LoadingScreen
 import com.dedesaepulloh.fakeappstore.presentation.detail.state.DetailState
+import com.dedesaepulloh.fakeappstore.presentation.wishlist.WishlistViewModel
 
 @Composable
 fun ProductDetailScreen(
     id: Int = 0,
     modifier: Modifier = Modifier,
     viewModel: ProductDetailViewModel = hiltViewModel(),
+    wishlistViewModel: WishlistViewModel = hiltViewModel(),
     cartViewModel: CartViewModel,
     onOrderNow: (Product) -> Unit = {}
 ) {
 
     val state by viewModel.state.collectAsState()
+    val isInWishlist = remember { mutableStateOf(false) }
+
+    LaunchedEffect(id) {
+        viewModel.getDetail(id)
+        val result = wishlistViewModel.isWishlist(id)
+        isInWishlist.value = result != null
+    }
+
 
     LaunchedEffect(id) {
         viewModel.getDetail(id)
@@ -77,7 +91,12 @@ fun ProductDetailScreen(
             is DetailState.Success -> {
                 val product = (state as DetailState.Success).data
                 if (product != null) {
-                    ProductDetailContent(product, cartViewModel, onOrderNow)
+                    ProductDetailContent(
+                        product = product,
+                        cartViewModel = cartViewModel,
+                        onOrderNow = onOrderNow,
+                        isInWishlist = isInWishlist
+                    )
                 }
             }
 
@@ -91,6 +110,8 @@ fun ProductDetailScreen(
 fun ProductDetailContent(
     product: Product,
     cartViewModel: CartViewModel = hiltViewModel(),
+    wishlistViewModel: WishlistViewModel = hiltViewModel(),
+    isInWishlist: MutableState<Boolean>,
     onOrderNow: (Product) -> Unit = {}
 ) {
 
@@ -151,15 +172,25 @@ fun ProductDetailContent(
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(
-                onClick = { },
+                onClick = {
+                    if (isInWishlist.value) {
+                        wishlistViewModel.removeWishlist(product)
+                        Toast.makeText(context, "Removed from wishlist", Toast.LENGTH_SHORT).show()
+                    } else {
+                        wishlistViewModel.addToWishlist(product)
+                        Toast.makeText(context, "Added to wishlist", Toast.LENGTH_SHORT).show()
+                    }
+                    isInWishlist.value = !isInWishlist.value
+                },
                 modifier = Modifier
                     .size(48.dp)
                     .clip(CircleShape)
                     .background(Color.Transparent)
             ) {
                 Icon(
-                    imageVector = Icons.Default.Favorite,
-                    contentDescription = "Wishlist"
+                    imageVector = if (isInWishlist.value) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                    contentDescription = "Wishlist",
+                    tint = if (isInWishlist.value) MaterialTheme.colorScheme.primary else Color.Gray
                 )
             }
 
