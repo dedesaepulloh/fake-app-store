@@ -55,9 +55,7 @@ fun ProductCategoryScreen(
                 })
             }
 
-            else -> {
-                // Nothing
-            }
+            else -> Unit
         }
     }
 

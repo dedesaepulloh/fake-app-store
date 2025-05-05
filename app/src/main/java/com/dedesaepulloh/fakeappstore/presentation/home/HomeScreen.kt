@@ -67,9 +67,7 @@ fun HomeScreen(
                 InitContent(products, onItemClick, onOrderNow)
             }
 
-            else -> {
-                // Nothing
-            }
+            else -> Unit
         }
     }
 }

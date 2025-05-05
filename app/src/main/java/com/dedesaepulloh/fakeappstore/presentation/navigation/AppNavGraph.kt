@@ -73,6 +73,7 @@ fun AppNavGraph(
         }
         composable(Screen.Wishlist.route) {
             WishlistScreen(modifier = Modifier.padding(padding), onOrderNow = {
+                cartViewModel.setCheckoutProducts(listOf(it))
                 navController.navigate(Screen.OrderDetail.route)
             }, onItemClick = {
                 navController.navigate(Screen.ProductDetail.create(it.id))
