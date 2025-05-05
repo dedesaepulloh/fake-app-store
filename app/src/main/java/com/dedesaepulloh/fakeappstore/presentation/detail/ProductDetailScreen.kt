@@ -217,7 +217,7 @@ fun ProductDetailContent(
                 },
                 modifier = Modifier.weight(1f)
             ) {
-                Text("Beli Sekarang")
+                Text("Buy Now")
             }
 
         }
