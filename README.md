@@ -16,45 +16,25 @@ Jetpack Compose, MVVM, Hilt, Room, Retrofit, and Kotlin Coroutines.
 
 ## 📱 Screenshots
 
-### 🏠 Home
-
-<img src="https://github.com/dedesaepulloh/fake-app-store/blob/master/app/src/main/assets/images/home.png?raw=true" alt="Home" width="300"/>
-
-### 🛒 Shopping Cart
-
-<img src="https://github.com/dedesaepulloh/fake-app-store/blob/master/app/src/main/assets/images/shopping_cart.png?raw=true" alt="Shopping Cart" width="300"/>
-
-### ❤️ Wishlist
-
-<img src="https://github.com/dedesaepulloh/fake-app-store/blob/master/app/src/main/assets/images/wishlist.png?raw=true" alt="Wishlist" width="300"/>
-
-### 🧾 Checkout
-
-<img src="https://github.com/dedesaepulloh/fake-app-store/blob/master/app/src/main/assets/images/checkout.png?raw=true" alt="Checkout" width="300"/>
-
-### 🔍 Detail Product
-
-<img src="https://github.com/dedesaepulloh/fake-app-store/blob/master/app/src/main/assets/images/detail_product.png?raw=true" alt="Detail Product" width="300" />
-
-### 📂 Category
-
-<img src="https://github.com/dedesaepulloh/fake-app-store/blob/master/app/src/main/assets/images/category.png?raw=true" alt="Category" width="300"/>
-
-### 🛍️ Product by Category
-
-<img src="https://github.com/dedesaepulloh/fake-app-store/blob/master/app/src/main/assets/images/product_by_category.png?raw=true" alt="Product by Category" width="300"/>
-
-### 🔐 Login
-
-<img src="https://github.com/dedesaepulloh/fake-app-store/blob/master/app/src/main/assets/images/login.png?raw=true" alt="Login" width="300"/>
-
-### 📝 Register
-
-<img src="https://github.com/dedesaepulloh/fake-app-store/blob/master/app/src/main/assets/images/register.png?raw=true" alt="Register" width="300"/>
-
-### 👤 Profile
-
-<img src="https://github.com/dedesaepulloh/fake-app-store/blob/master/app/src/main/assets/images/profile.png?raw=true" alt="Profile" width="300"/>
+<table>
+   <tr>
+      <td><img src="https://github.com/dedesaepulloh/fake-app-store/blob/master/app/src/main/assets/images/login.png?raw=true" alt="Login" width="300"/></td>
+      <td><img src="https://github.com/dedesaepulloh/fake-app-store/blob/master/app/src/main/assets/images/home.png?raw=true" alt="Home" width="300"/></td>
+      <td><img src="https://github.com/dedesaepulloh/fake-app-store/blob/master/app/src/main/assets/images/category.png?raw=true" alt="Category" width="300"/></td>
+      <td><img src="https://github.com/dedesaepulloh/fake-app-store/blob/master/app/src/main/assets/images/shopping_cart.png?raw=true" alt="Shopping Cart" width="300"/></td>
+      
+   </tr>
+   <tr>
+      <td><img src="https://github.com/dedesaepulloh/fake-app-store/blob/master/app/src/main/assets/images/detail_product.png?raw=true" alt="Detail Product" width="300" /></td>
+      <td><img src="https://github.com/dedesaepulloh/fake-app-store/blob/master/app/src/main/assets/images/product_by_category.png?raw=true" alt="Product by Category" width="300"/></td>
+      <td><img src="https://github.com/dedesaepulloh/fake-app-store/blob/master/app/src/main/assets/images/checkout.png?raw=true" alt="Checkout" width="300"/></td>
+      <td><img src="https://github.com/dedesaepulloh/fake-app-store/blob/master/app/src/main/assets/images/profile.png?raw=true" alt="Profile" width="300"/></td>
+   </tr>
+   <tr>
+      <td><img src="https://github.com/dedesaepulloh/fake-app-store/blob/master/app/src/main/assets/images/wishlist.png?raw=true" alt="Wishlist" width="300"/></td>
+      <td><img src="https://github.com/dedesaepulloh/fake-app-store/blob/master/app/src/main/assets/images/register.png?raw=true" alt="Register" width="300"/></td>
+   </tr>
+</table>
 
 ## 🛠️ Tech Stack
 
